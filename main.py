@@ -3,6 +3,7 @@ from flask import Flask, request, redirect, url_for, make_response
 app = Flask('prva aplikacija')
 temperature = []
 
+#1.zad
 @app.get('/')
 def home():
     return 'Pocetna stranica'
@@ -11,6 +12,7 @@ def home():
 def login():
     return 'Stranica za prijavu'
 
+#2.zad
 @app.post('/login')
 def check():
     username = request.json.get('username')
@@ -20,7 +22,8 @@ def check():
         return redirect(url_for('home'))
     else: 
         return redirect(url_for('login'))
-    
+ 
+ #3.zad   
 @app.post('/temperatura')
 def temp_add():
     global temperature
@@ -30,16 +33,21 @@ def temp_add():
     else:
         return('Niste upisali ispravan ključ', 404)
 
+#4.zad
 @app.get('/temperatura')
 def temp_print():
     global temperature
-    json = {'temperatura' : temperature[-1]}
-    return json, 200
+    if len(temperature) > 0:
+        json = {'temperatura' : temperature[-1]}
+        return json, 200
+    else:
+        return 'Nema temperature u listi'
 
+#5.zad
 @app.delete('/temperatura')
 def temp_delete():
     global temperature
-    temperatura =  request.args.get('temperatura')
+    temperatura =  request.args.get('id')
 
     if temperatura is not None:
         temperature.remove(temperatura)
