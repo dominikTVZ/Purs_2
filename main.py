@@ -47,11 +47,14 @@ def temp_print():
 @app.delete('/temperatura')
 def temp_delete():
     global temperature
-    temperatura =  request.args.get('id')
+    temperatura =  request.args.get('temperatura')
 
     if temperatura is not None:
-        temperature.remove(temperatura)
-        return 'Uspješno ste izrbisali temperaturu', 202
+        try:
+            temperature.remove(temperature[-1])
+            return 'Uspješno ste izrbisali temperaturu', 202
+        except ValueError:
+            return 'Temperatura nije pronađena u listi', 404
     else:
         return 'Unesli ste krive podatke', 404
 
