@@ -42,7 +42,7 @@ def temp_delete():
     temperatura =  request.args.get('temperatura')
 
     if temperatura is not None:
-        temperature.remove(temperature[-1])
+        temperature.remove(temperatura)
         return 'Uspješno ste izrbisali temperaturu', 202
     else:
         return 'Unesli ste krive podatke', 404
